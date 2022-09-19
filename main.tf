@@ -21,7 +21,7 @@ resource "aws_iam_role" "role" {
 
 # deploye lambda function
 resource "aws_lambda_function" "lambda_function" {
-  function_name    = local.name_function
+  function_name    = local.NAME_FUNCTION
   filename         = data.archive_file.lambda_zip.output_path
   handler          = local.handler
   role             = aws_iam_role.role.arn
@@ -39,15 +39,15 @@ resource "aws_lambda_function" "lambda_function" {
 resource "aws_api_gateway_resource" "resource" {
   rest_api_id = var.API_ID
   parent_id   = var.PARENT_ID
-  path_part   = "test"
+  path_part   = local.PATH_PART
 }
 
 // create api gateway method
 resource "aws_api_gateway_method" "method" {
-  rest_api_id   = var.API_ID
-  resource_id   = aws_api_gateway_resource.resource.id
-  http_method   = "GET"
-  authorization = "NONE"
+  rest_api_id      = var.API_ID
+  resource_id      = aws_api_gateway_resource.resource.id
+  http_method      = "GET"
+  authorization    = "NONE"
   api_key_required = true
 }
 

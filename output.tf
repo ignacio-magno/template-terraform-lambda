@@ -1,7 +1,7 @@
 resource "local_file" "results" {
   filename = "${path.module}/results.json"
   content = jsonencode({
-    "name_function" = local.name_function
+    "name_function" = local.NAME_FUNCTION
     "arn_function"  = aws_lambda_function.lambda_function.arn
     "updated_at"    = timestamp()
     "timeout"       = aws_lambda_function.lambda_function.timeout

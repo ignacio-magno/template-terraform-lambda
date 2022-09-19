@@ -1,13 +1,18 @@
-variable "lambda-function-name" {
-  type = string
-  default = "lambda-function-name"
-}
+// set values variables
 
+// dont touch
 locals {
-  name_function = "${lambda-function-name}-${var.workspace}"
-  file_name     = "${path.module}/.temp/main.zip"
-  handler       = "main"
-  name_role     = "${lambda-function-name}-${var.workspace}-role"
+
+  LOCAL_DATA = jsondecode(file("${path.module}/terraform.tfvars.json"))
+
+  // values variables obtained of file
+  NAME_FUNCTION = "${local.LOCAL_DATA.LAMBDA_FUNCTION_NAME}-${var.workspace}"
+  PATH_PART     = local.LOCAL_DATA.PATH_PART
+  METHODS       = local.LOCAL_DATA.METHODS
+
+  file_name = "${path.module}/.temp/main.zip"
+  handler   = "main"
+  name_role = "${local.LOCAL_DATA.LAMBDA_FUNCTION_NAME}-${var.workspace}-role"
 }
 
 variable "workspace" {
