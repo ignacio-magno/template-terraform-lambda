@@ -6,10 +6,15 @@ resource "local_file" "results" {
     "updated_at"    = timestamp()
     "timeout"       = aws_lambda_function.lambda_function.timeout
     "url_api"       = "https://${var.API_ID}.execute-api.us-west-2.amazonaws.com/${var.API_STAGE}/test"
-    "method"        = aws_api_gateway_method.method.http_method
+    "methods"       = local.METHODS
   })
 }
 
-output "id_method" {
-  value = aws_api_gateway_integration.integration.id
+// output 
+output "CHANGED_API" {
+  value = [
+    aws_api_gateway_method.method,
+    aws_api_gateway_integration.integration,
+    aws_api_gateway_resource.resource,
+  ]
 }

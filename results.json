@@ -1,0 +1,1 @@
+{"arn_function":"arn:aws:lambda:us-west-2:378009899806:function:testing-lambda-dev","methods":{"GET":"","POST":""},"name_function":"testing-lambda-dev","timeout":3,"updated_at":"2022-09-19T19:36:13Z","url_api":"https://7wyhu6he65.execute-api.us-west-2.amazonaws.com/main/test"}
