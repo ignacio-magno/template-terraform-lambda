@@ -33,6 +33,12 @@ resource "aws_lambda_function" "lambda_function" {
   timeouts {
     create = "1m"
   }
+
+  environment {
+    variables = {
+      ENV = "dev"
+    }
+  }
 }
 
 
