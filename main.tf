@@ -35,9 +35,7 @@ resource "aws_lambda_function" "lambda_function" {
   }
 
   environment {
-    variables = {
-      ENV = "dev"
-    }
+    variables = local.LOCAL_DATA.PATH_ENVIRONMENTS == "" ? {} : local.ENVIRONMENTS
   }
 }
 
@@ -77,8 +75,8 @@ resource "aws_api_gateway_method_settings" "method_settings" {
   method_path = "${aws_api_gateway_resource.resource.path}/${each.key}"
 
   settings {
-    metrics_enabled = true
-    logging_level   = "INFO"
+    metrics_enabled    = true
+    logging_level      = "INFO"
     data_trace_enabled = true
   }
 }
