@@ -4,6 +4,7 @@ resource "null_resource" "build" {
     command  = local.is_linux ?"echo 'building code' && mkdir -p temp && docker build -t golang_build . && docker run --name golang_build_container golang_build && docker cp golang_build_container:/app/main ./temp && docker rm golang_build_container" : "echo 'building code'; docker build -t golang_build . ; docker run --name golang_build_container golang_build ; docker cp golang_build_container:/app/main ./temp; docker rm golang_build_container"
     # command = "sleep 60"
     interpreter = local.is_linux ? ["/bin/bash", "-c"] : ["PowerShell", "-Command"]
+    working_dir = path.module
   }
   triggers = {
     always_run = timestamp()
@@ -12,8 +13,8 @@ resource "null_resource" "build" {
 
 data "archive_file" "lambda_zip" {
   type        = "zip"
-  source_file = "./temp/main"
-  output_path =  "./temp/main.zip"
+  source_file = "${path.module}/temp/main"
+  output_path =  "${path.module}/temp/main.zip"
 
   depends_on = [
     null_resource.build

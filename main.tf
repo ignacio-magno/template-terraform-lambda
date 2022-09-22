@@ -9,7 +9,7 @@ data "aws_caller_identity" "current" {}
 # form many methods, use the same role
 resource "aws_iam_role" "role" {
 
-  name = "${var.ROLE_NAME}-${var.WORKSPACE}"
+  name = "${var.ROLE_NAME}-${terraform.workspace}"
   // assume role policy lambda
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -28,7 +28,7 @@ resource "aws_iam_role" "role" {
 
 # deploye lambda function
 resource "aws_lambda_function" "lambda_function" {
-  function_name    = "${var.LAMBDA_FUNCTION_NAME}-${var.WORKSPACE}"
+  function_name    = "${var.LAMBDA_FUNCTION_NAME}-${terraform.workspace}"
   handler          = var.HANDLER
   filename         = data.archive_file.lambda_zip.output_path
   role             = aws_iam_role.role.arn
@@ -45,12 +45,12 @@ resource "aws_lambda_function" "lambda_function" {
 }
 
 // lambda permisson
-resource "aws_lambda_permission" "apigw_lambda" {
-  count = var.API_ID != "" ? 1 : 0
-
-  statement_id  = "AllowExecutionFromAPIGateway"
-  action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.lambda_function.function_name
-  principal     = "apigateway.amazonaws.com"
-  source_arn    = "arn:aws:execute-api:us-west-2:${data.aws_caller_identity.current.account_id}:${var.API_ID}/*/*/*"
-}
+// resource "aws_lambda_permission" "apigw_lambda" {
+//   count = var.API_ID != "" ? 1 : 0
+// 
+//   statement_id  = "AllowExecutionFromAPIGateway"
+//   action        = "lambda:InvokeFunction"
+//   function_name = aws_lambda_function.lambda_function.function_name
+//   principal     = "apigateway.amazonaws.com"
+//   source_arn    = "arn:aws:execute-api:us-west-2:${data.aws_caller_identity.current.account_id}:${var.API_ID}/*/*/*"
+// }
