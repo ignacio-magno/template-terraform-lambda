@@ -41,3 +41,7 @@ in module set variables
   ENVIRONMENTS = {}
 }
 ```
+
+### Output
+`function_name`
+`function_arn`
