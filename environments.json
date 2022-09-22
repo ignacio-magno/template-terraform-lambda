@@ -1,8 +1,8 @@
 {
-    "METHODS": {
-        "GET": ""
-    },
-    "LAMBDA_FUNCTION_NAME": "contabilidad-obtain-business",
-    "PATH_PART": "business",
-    "PATH_ENVIRONMENTS": "/home/ignacio/.credentials/mongo_credentials/mongo_contilab.json"
+    "LAMBDA_FUNCTION_NAME": "test-22",
+    "PATH_ENVIRONMENT": "",
+    "API_ID" : "",
+    "API_STAGE" : "",
+    "HANDLER": "main",
+    "ROLE_NAME" : "test-22-rol"
 }

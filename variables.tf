@@ -11,11 +11,11 @@ variable "API_STAGE" {
   type = string
 }
 
-variable "NAME_ROLE" {
+variable "ROLE_NAME" {
   type = string
 }
 
-variable "NAME_FUNCTION"{
+variable "LAMBDA_FUNCTION_NAME"{
     type = string
 }
 
@@ -29,5 +29,7 @@ variable "PATH_ENVIRONMENT" {
 
 // environments private
 locals{
-  ENVIRONMENT = jsonencode(file(var.PATH_ENVIRONMENT))
+  ENVIRONMENT = var.PATH_ENVIRONMENT != "" ?  fileexists(var.PATH_ENVIRONMENT) ? jsondecode(file(var.PATH_ENVIRONMENT)) : {} : {}
 }
+
+// read json environments

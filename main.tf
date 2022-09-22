@@ -9,7 +9,7 @@ data "aws_caller_identity" "current" {}
 # form many methods, use the same role
 resource "aws_iam_role" "role" {
 
-  name = "${var.NAME_ROLE}-${var.WORKSPACE}"
+  name = "${var.ROLE_NAME}-${var.WORKSPACE}"
   // assume role policy lambda
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -28,7 +28,7 @@ resource "aws_iam_role" "role" {
 
 # deploye lambda function
 resource "aws_lambda_function" "lambda_function" {
-  function_name    = "${var.NAME_FUNCTION}-${var.WORKSPACE}"
+  function_name    = "${var.LAMBDA_FUNCTION_NAME}-${var.WORKSPACE}"
   handler          = var.HANDLER
   filename         = data.archive_file.lambda_zip.output_path
   role             = aws_iam_role.role.arn
@@ -39,14 +39,14 @@ resource "aws_lambda_function" "lambda_function" {
     create = "1m"
   }
 
-  environment {
-    variables = local.ENVIRONMENT
-  }
+  //environment {
+  //  variables = local.ENVIRONMENT
+  //}
 }
 
 // lambda permisson
 resource "aws_lambda_permission" "apigw_lambda" {
-  count = var.API_ID ? 1 : 0
+  count = var.API_ID != "" ? 1 : 0
 
   statement_id  = "AllowExecutionFromAPIGateway"
   action        = "lambda:InvokeFunction"

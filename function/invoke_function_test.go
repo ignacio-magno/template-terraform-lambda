@@ -5,6 +5,7 @@ import (
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/lambda"
+	"github.com/aws/aws-sdk-go-v2/service/lambda/types"
 	"testing"
 )
 
@@ -17,7 +18,8 @@ func TestInvokeFunction(t *testing.T) {
 
 	// Call the Lambda function
 	result, err := client.Invoke(context.Background(), &lambda.InvokeInput{
-		FunctionName: aws.String("test-lambda-2"),
+		FunctionName:   aws.String("test-22-dev"),
+		InvocationType: types.InvocationTypeRequestResponse,
 	})
 	if err != nil {
 		t.Fatal(err)
