@@ -5,9 +5,9 @@ variable "LAMBDA_FUNCTION_NAME" {
 }
 
 // if not exist path environment set ""
-variable "PATH_ENVIRONMENT" {
-  type    = string
-  default = ""
+variable "ENVIRONMENTS" {
+  type    = map
+  default = {}
 }
 
 variable "ROLE_NAME" {
@@ -18,9 +18,4 @@ variable "ROLE_NAME" {
 variable "HANDLER" {
   type    = string
   default = "main"
-}
-
-// environments private
-locals {
-  ENVIRONMENT = var.PATH_ENVIRONMENT != "" ? fileexists(var.PATH_ENVIRONMENT) ? jsondecode(file(var.PATH_ENVIRONMENT)) : {} : {}
 }

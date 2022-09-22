@@ -9,8 +9,6 @@ terraform plan # show what will be creat
 
 # ... other commands
 ```
-
-
 ### Use
 Deploy function in lambda aws with roles basic. \
 in folder function set all code function.
@@ -34,5 +32,12 @@ in folder function set all code function.
   // not implemented
   "API_ID" : "",
   "API_STAGE" : ""
+}
+```
+### Module
+in module set variables 
+```json
+{
+  ENVIRONMENTS = {}
 }
 ```

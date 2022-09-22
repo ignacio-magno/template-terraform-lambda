@@ -1,6 +1,6 @@
 # provider aws
 provider "aws" {
-    region = "us-west-2"
+  region = "us-west-2"
 }
 
 data "aws_caller_identity" "current" {}
@@ -39,9 +39,9 @@ resource "aws_lambda_function" "lambda_function" {
     create = "1m"
   }
 
-  //environment {
-  //  variables = local.ENVIRONMENT
-  //}
+  environment {
+    variables = var.ENVIRONMENTS
+  }
 }
 
 // lambda permisson
