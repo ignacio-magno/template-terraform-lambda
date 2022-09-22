@@ -6,7 +6,7 @@ variable "LAMBDA_FUNCTION_NAME" {
 
 // if not exist path environment set ""
 variable "ENVIRONMENTS" {
-  type    = map
+  type    = map(string)
   default = {}
 }
 

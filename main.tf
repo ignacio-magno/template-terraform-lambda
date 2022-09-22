@@ -3,8 +3,6 @@ provider "aws" {
   region = "us-west-2"
 }
 
-data "aws_caller_identity" "current" {}
-
 # resource iam role with policy to invoke lambda
 # form many methods, use the same role
 resource "aws_iam_role" "role" {
@@ -43,6 +41,8 @@ resource "aws_lambda_function" "lambda_function" {
     variables = var.ENVIRONMENTS
   }
 }
+
+// data "aws_caller_identity" "current" {}
 
 // lambda permisson
 // resource "aws_lambda_permission" "apigw_lambda" {
