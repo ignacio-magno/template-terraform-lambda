@@ -7,6 +7,7 @@ WORKDIR /app
 
 ENV GOARCH=amd64
 ENV GOOS=linux
+ENV CGO_ENABLED=0
 
 COPY ./function/go.mod ./
 COPY ./function/go.sum ./
