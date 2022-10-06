@@ -1,0 +1,13 @@
+services:
+  go-build:
+    image: build-golang-code 
+    environment:
+      - GO111MODULE=on
+      - CGO_ENABLED=0
+      - GOOS=linux
+      - GOARCH=amd64
+    volumes:
+      - .:/app
+    container_name: build-golang
+    # matain alive for debug
+    command: tail -f /dev/null
