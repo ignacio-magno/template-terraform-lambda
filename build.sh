@@ -5,8 +5,12 @@ echo "machine github.com login $GIT_USERNAME password $GIT_ACCESS_TOKEN" > /root
 
 mkdir -p temp
 
+chmod 777 temp
+
 go mod tidy
 go build -o temp/main main.go
 
 echo "done"
-tail -f /dev/null
+
+# active to logs without terraform
+#tail -f /dev/null

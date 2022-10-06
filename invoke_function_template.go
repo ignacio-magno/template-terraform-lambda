@@ -2,15 +2,15 @@ package main
 
 import (
 	"context"
-	"testing"
-
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/lambda"
 	"github.com/aws/aws-sdk-go-v2/service/lambda/types"
 )
 
-func TestInvokeFunction(t *testing.T) {
+var FunctionName = ""
+
+func TestInvokeFunction(payload []byte) {
 	// Create a new session
 	conf, _ := config.LoadDefaultConfig(context.Background(), config.WithRegion("us-west-2"))
 
@@ -19,8 +19,9 @@ func TestInvokeFunction(t *testing.T) {
 
 	// Call the Lambda function
 	result, err := client.Invoke(context.Background(), &lambda.InvokeInput{
-		FunctionName:   aws.String("test-22-default"),
+		FunctionName:   aws.String(FunctionName),
 		InvocationType: types.InvocationTypeRequestResponse,
+		Payload:        payload,
 	})
 	if err != nil {
 		t.Fatal(err)

@@ -6,8 +6,7 @@ provider "aws" {
 # resource iam role with policy to invoke lambda
 # form many methods, use the same role
 resource "aws_iam_role" "role" {
-
-  name = "${var.ROLE_NAME}-${terraform.workspace}"
+  name = var.ROLE_NAME
   // assume role policy lambda
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -23,10 +22,29 @@ resource "aws_iam_role" "role" {
   })
 }
 
+// policy to logs
+resource "aws_iam_role_policy" "logs" {
+  name = "logs"
+  role = aws_iam_role.role.id
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = [
+          "logs:CreateLogGroup",
+          "logs:CreateLogStream",
+          "logs:PutLogEvents",
+        ]
+        Effect = "Allow"
+        Resource = "arn:aws:logs:*:*:*"
+      },
+    ]
+  })
+}
 
 # deploye lambda function
 resource "aws_lambda_function" "lambda_function" {
-  function_name    = "${var.LAMBDA_FUNCTION_NAME}-${terraform.workspace}"
+  function_name    = var.LAMBDA_FUNCTION_NAME
   handler          = var.HANDLER
   filename         = data.archive_file.lambda_zip.output_path
   role             = aws_iam_role.role.arn
@@ -35,10 +53,6 @@ resource "aws_lambda_function" "lambda_function" {
   depends_on       = [data.archive_file.lambda_zip]
   timeouts {
     create = "1m"
-  }
-
-  environment {
-    variables = var.ENVIRONMENTS
   }
 }
 
