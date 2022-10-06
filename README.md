@@ -1,45 +1,29 @@
-# github
+# Doc
+`build golang code in container, and deploy a lambda function with role default.`
 
-### commands
+## Parameters
+
+```json
+{
+  "LAMBDA_FUNCTION_NAME": "your_function_name_her",
+  "ROLE_NAME": "your_role_name_her"
+}
+```
+
+## Installation
+- download code in main folder of your project.
+- in folder need have basic files: main.go, go.mod, go.sum
+- main.go with lambda.Start(handlerRequest)
+- create file <nameFile>.json and set the parameters required *optional
+
+### USAGE
+    
 ```bash
-# move to the directory where exist terrafom files, inside this folder need exist folder function with code to deploye
-cd ~/main_folder
-terraform init # download provider
-terraform plan # show what will be creat
+terraform init
+terraform plan -env-file="<nameFile>.json"
+terraform apply -env-file="<nameFile>.json"
 
-# ... other commands
-```
-### Use
-Deploy function in lambda aws with roles basic. \
-in folder function set all code function.
-
-### Variables
-```json
-{
-  // workspace can be dev / prod / etc...
-  // the reald name of the function is  lambda function name + workspace
-  "LAMBDA_FUNCTION_NAME": "test-22", 
-  
-  // path of file json with the environment variables, if empty, the function will not have environment variables
-  "PATH_ENVIRONMENT": "",
-  
-  // hanlder code,
-  "HANDLER": "main",
-  
-  // real role name is role_name + workspace
-  "ROLE_NAME" : "test-22-rol",
-  
-  // not implemented
-  "API_ID" : "",
-  "API_STAGE" : ""
-}
-```
-### Module
-in module set variables 
-```json
-{
-  ENVIRONMENTS = {}
-}
+terraform destroy -env-file="<nameFile>.json"
 ```
 
 ### Output
