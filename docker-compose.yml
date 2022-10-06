@@ -6,6 +6,10 @@ services:
       - CGO_ENABLED=0
       - GOOS=linux
       - GOARCH=amd64
+
+      # only necessary if you are using a private repo
+      - GIT_ACCESS_TOKEN=youraccestoken
+      - GIT_USERNAME=yourusername
     volumes:
       - .:/app
     container_name: build-golang

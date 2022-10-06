@@ -6,6 +6,12 @@ WORKDIR /app
 
 RUN apk update && apk add bash
 
+
+# use in case of the need to install private repository
+RUN apk update && apk add git
+
+#RUN git config --global --add url."git@github.com:".insteadOf "https://github.com/"
+
 RUN echo hola
 # copy file from container to local
 
