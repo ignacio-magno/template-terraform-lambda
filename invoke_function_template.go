@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/lambda"
@@ -24,9 +25,9 @@ func TestInvokeFunction(payload []byte) {
 		Payload:        payload,
 	})
 	if err != nil {
-		t.Fatal(err)
+		panic(err)
 	}
 
 	// Log the response
-	t.Log(string(result.Payload))
+	fmt.Println(string(result.Payload))
 }

@@ -10,6 +10,9 @@
 }
 ```
 
+## Requirements
+Build goland code and save the exec in folder .build, with name main
+
 ## Installation
 - download code in main folder of your project.
 - in folder need have basic files: main.go, go.mod, go.sum
